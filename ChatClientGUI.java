@@ -10,8 +10,10 @@ public class ChatClientGUI {
     private JTextArea chatArea = new JTextArea();
     private JTextField inputField = new JTextField();
     private PrintWriter out;
+    private String username;
 
     public ChatClientGUI() {
+        username = JOptionPane.showInputDialog("Enter your username:");
         setupGUI();
         connectToServer();
     }
@@ -28,12 +30,10 @@ public class ChatClientGUI {
         frame.add(scrollPane, BorderLayout.CENTER);
         frame.add(inputField, BorderLayout.SOUTH);
 
-        inputField.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String msg = inputField.getText();
-                out.println(msg);
-                inputField.setText("");
-            }
+        inputField.addActionListener(e -> {
+            String msg = inputField.getText();
+            out.println(username + ": " + msg);
+            inputField.setText("");
         });
 
         frame.setVisible(true);
@@ -41,8 +41,11 @@ public class ChatClientGUI {
 
     private void connectToServer() {
         try {
-            Socket socket = new Socket("172.16.188.215", 5000);
+            Socket socket = new Socket("localhost", 5000);
             out = new PrintWriter(socket.getOutputStream(), true);
+
+            // send username first
+            out.println(username);
 
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
@@ -68,4 +71,3 @@ public class ChatClientGUI {
         new ChatClientGUI();
     }
 }
-
