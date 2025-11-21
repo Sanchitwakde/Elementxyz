@@ -41,7 +41,7 @@ public class ChatClientGUI {
 
     private void connectToServer() {
         try {
-            Socket socket = new Socket("localhost", 5000);
+            Socket socket = new Socket("172.16.188.215", 5000);
             out = new PrintWriter(socket.getOutputStream(), true);
 
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -68,3 +68,4 @@ public class ChatClientGUI {
         new ChatClientGUI();
     }
 }
+
