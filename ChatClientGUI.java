@@ -44,8 +44,8 @@ public class ChatClientGUI {
             Socket socket = new Socket("172.16.188.215", 5000);
             out = new PrintWriter(socket.getOutputStream(), true);
 
-            // send username first
-            out.println(username);
+            
+            out.println(username +" has joined the chat");
 
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
@@ -71,4 +71,5 @@ public class ChatClientGUI {
         new ChatClientGUI();
     }
 }
+
 
